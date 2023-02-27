@@ -6,7 +6,7 @@ import java.time.LocalDate;
 public class DateUtils {
 
 
-    public LocalDate GetDateOfLastnDay (int Minus) {
+    public LocalDate GetDateOfLastDays (int Minus) {
 
         LocalDate today = LocalDate.now();
         LocalDate date = today.minusDays(Minus);

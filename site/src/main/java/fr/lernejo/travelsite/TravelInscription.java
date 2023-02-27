@@ -1,5 +1,6 @@
 package fr.lernejo.travelsite;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import org.jetbrains.annotations.NotNull;
 
 import javax.validation.constraints.Email;
@@ -8,23 +9,35 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import retrofit2.http.Headers;
 
 public class TravelInscription {
 
 
     @NotNull
     @Email
-    private String userEmail;
+    private final String userEmail;
     @NotNull
-    private String userName;
+    private final String userName;
     @NotNull
-    private String userCountry;
+    private final String userCountry;
+
 
     @NotNull
     @Min(value = 0)
     @Max(value = 40)
 
-    private int minimumTemperatureDistance;
+    private final int minimumTemperatureDistance;
+
+    @JsonCreator
+    public TravelInscription( @JsonProperty("userEmail") String userEmail,  @JsonProperty("userName") String userName,  @JsonProperty("userCountry") String userCountry,  @JsonProperty("minimumTemperatureDistance") int minimumTemperatureDistance,  @JsonProperty("weatherExpectation") WeatherExpectation weatherExpectation) {
+        this.userEmail = userEmail;
+        this.userName = userName;
+        this.userCountry = userCountry;
+        this.minimumTemperatureDistance = minimumTemperatureDistance;
+        this.weatherExpectation = weatherExpectation;
+
+    }
 
     enum WeatherExpectation {
         WARMER, COLDER;
@@ -34,52 +47,37 @@ public class TravelInscription {
     @NotNull
     @JsonProperty("weatherExpectation")
     @Pattern(regexp = "WARMER|COLDER")
-    private WeatherExpectation weatherExpectation;
+    private final WeatherExpectation weatherExpectation;
 
 
-    // Constructor of this class
-    public TravelInscription() {
-    }
 
     public String getUserEmail() {
         return userEmail;
     }
 
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
-    }
 
     public String getUserName() {
         return userName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+
 
     public String getUserCountry() {
         return userCountry;
     }
 
-    public void setUserCountry(String userCountry) {
-        this.userCountry = userCountry;
-    }
 
 
     public int getMinimumTemperatureDistance() {
         return minimumTemperatureDistance;
     }
 
-    public void setMinimumTemperatureDistance(int minimumTemperatureDistance) {
-        this.minimumTemperatureDistance = minimumTemperatureDistance;
-    }
+
     public WeatherExpectation getWeatherExpectation() {
         return weatherExpectation;
     }
 
-    public void setWeatherExpectation (WeatherExpectation weatherExpectation) {
-        this.weatherExpectation = weatherExpectation;
-    }
+
 
 
 

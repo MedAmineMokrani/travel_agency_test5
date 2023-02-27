@@ -16,12 +16,9 @@ import java.util.Map;
 public class TravelController {
     @PostMapping("/api/inscription")
     public TravelInscription postInscription( @RequestBody TravelInscription SiteInscription) {
-        SiteInscription.setUserEmail("machin@truc.com");
-        SiteInscription.setUserName("machin");
-        SiteInscription.setUserCountry("France");
-        SiteInscription.setWeatherExpectation(TravelInscription.WeatherExpectation.COLDER);
-        SiteInscription.setMinimumTemperatureDistance(20);
-        return SiteInscription;
+
+
+        return null;
     }
 
     @GetMapping("api/travels")

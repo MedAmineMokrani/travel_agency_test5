@@ -21,25 +21,20 @@ public class PredictionController {
         try {
             Map<String, Object> response = null;
             for (int i = 1; i < 2; i++) {
-
                 Map<String, Object> temp1 = new HashMap<>();
-                temp1.put("date", DateUtils.GetDateOfLastnDay(i));
+                temp1.put("date", DateUtils.GetDateOfLastDays(i));
                 temp1.put("temperature", TemperatureService.getTemperature(country));
                 temperatures.add(temp1);
                 Map<String, Object> temp2 = new HashMap<>();
-                temp2.put("date", DateUtils.GetDateOfLastnDay(i+1));
+                temp2.put("date", DateUtils.GetDateOfLastDays(i+1));
                 temp2.put("temperature", TemperatureService.getTemperature(country));
                 temperatures.add(temp2);
-
                 response = new HashMap<>();
                 response.put("country", country);
                 response.put("temperatures", temperatures);
-
             }
             return new ResponseEntity<>(response, HttpStatus.OK);
-
         } catch (HttpClientErrorException ex) {
-
             MyHttpException errorResponse = new MyHttpException(ex.getMessage());
             return new ResponseEntity<>(errorResponse, HttpStatus.EXPECTATION_FAILED);
         }
