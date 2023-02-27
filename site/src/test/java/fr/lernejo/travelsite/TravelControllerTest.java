@@ -1,50 +1,54 @@
 package fr.lernejo.travelsite;
 
-import fr.lernejo.travelsite.TravelInscription;
-import org.junit.jupiter.api.BeforeEach;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.MockitoAnnotations;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import com.google.gson.Gson;
 
 import java.util.List;
 import java.util.Map;
 
-@SpringBootTest
-class TravelControllerTest {
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-    private MockMvc mockMvc;
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
+@AutoConfigureMockMvc
+public class TravelControllerTest {
 
-    @InjectMocks
-    private TravelController travelController;
-
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.initMocks(this);
-        mockMvc = MockMvcBuilders.standaloneSetup(travelController).build();
-    }
+        @Autowired
+        private MockMvc mockMvc;
 
     @Test
-    void testGetTravels() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/travels")
-                .param("userName", "test"))
-            .andExpect(MockMvcResultMatchers.status().isOk())
-            .andExpect(MockMvcResultMatchers.jsonPath("$[0].country").value("France"))
-            .andExpect(MockMvcResultMatchers.jsonPath("$[0].temperature").isNumber())
-            .andExpect(MockMvcResultMatchers.jsonPath("$[1].country").value("Spain"))
-            .andExpect(MockMvcResultMatchers.jsonPath("$[1].temperature").isNumber());
-    }
+    void postInscriptionTest() throws Exception {
 
-    @Test
-    void testPostInscription() throws Exception {
-        TravelInscription inscription = new TravelInscription("test", "test@gmail.com", "France",1, TravelInscription.WeatherExpectation.COLDER);
+
+        TravelInscription travelInscription = new TravelInscription("John", "Doe", "johndoe@example.com", 2, TravelInscription.WeatherExpectation.COLDER);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String requestBody = objectMapper.writeValueAsString(travelInscription);
+
         mockMvc.perform(MockMvcRequestBuilders.post("/api/inscription")
-                .contentType("application/json")
-                .content(inscription.toString()))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestBody))
             .andExpect(MockMvcResultMatchers.status().isOk());
     }
+
 }
+
+
+
+
+

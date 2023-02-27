@@ -29,15 +29,8 @@ public class TravelInscription {
 
     private final int minimumTemperatureDistance;
 
-    @JsonCreator
-    public TravelInscription( @JsonProperty("userEmail") String userEmail,  @JsonProperty("userName") String userName,  @JsonProperty("userCountry") String userCountry,  @JsonProperty("minimumTemperatureDistance") int minimumTemperatureDistance,  @JsonProperty("weatherExpectation") WeatherExpectation weatherExpectation) {
-        this.userEmail = userEmail;
-        this.userName = userName;
-        this.userCountry = userCountry;
-        this.minimumTemperatureDistance = minimumTemperatureDistance;
-        this.weatherExpectation = weatherExpectation;
 
-    }
+
 
     enum WeatherExpectation {
         WARMER, COLDER;
@@ -50,6 +43,15 @@ public class TravelInscription {
     private final WeatherExpectation weatherExpectation;
 
 
+    @JsonCreator
+    public TravelInscription( @JsonProperty("userEmail") String userEmail,  @JsonProperty("userName") String userName,  @JsonProperty("userCountry") String userCountry,  @JsonProperty("minimumTemperatureDistance") int minimumTemperatureDistance,  @JsonProperty("weatherExpectation") WeatherExpectation weatherExpectation) {
+        this.userEmail = userEmail;
+        this.userName = userName;
+        this.userCountry = userCountry;
+        this.minimumTemperatureDistance = minimumTemperatureDistance;
+        this.weatherExpectation = weatherExpectation;
+
+    }
 
     public String getUserEmail() {
         return userEmail;
