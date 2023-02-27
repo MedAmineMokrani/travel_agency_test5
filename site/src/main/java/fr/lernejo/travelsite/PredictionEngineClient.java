@@ -10,7 +10,7 @@ import java.util.List;
 public interface PredictionEngineClient {
     @GET("api/temperature")
     @Headers("Accept:application/json")
-    Call<Prediction> getTemperature(@Query("country") String country);
+    Call<Prediction> getTemperatureD(@Query("country") String country);
 
     record Prediction(String country, List<TempPoint> temperatures) {
     }
