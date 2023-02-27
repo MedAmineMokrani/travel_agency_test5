@@ -24,7 +24,7 @@ public class TravelController {
     @GetMapping("api/travels")
     public List<Map<String, Object>> getTravels(@RequestParam String userName) {
         List<Map<String, Object>> temperatures = new ArrayList<>();
-        Path destFile = Paths.get("site/src/main/resources/countries.txt");
+        Path destFile = Paths.get("src/main/resources/countries.txt");
         List<String> countries = new ArrayList<>();
         try {
             countries = Files.readAllLines(Paths.get(String.valueOf(destFile)));

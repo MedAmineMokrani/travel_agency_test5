@@ -46,7 +46,29 @@ public class TravelControllerTest {
             .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
+    @Test
+    public void testGetTravels() throws Exception {
+        String userName = "testUser";
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/api/travels")
+                .param("userName", userName)
+                .contentType(MediaType.APPLICATION_JSON))
+            .andReturn();
+
+        String responseBody = result.getResponse().getContentAsString();
+
+        List<Map<String, Object>> temperatures = objectMapper.readValue(responseBody, new TypeReference<List<Map<String, Object>>>() {});
+
+
+        Map<String, Object> temperature = temperatures.get(0);
+        assertEquals(temperature.get("country"), "Afghanistan");
+        assertEquals(temperature.get("temperature"), 24.5);
+    }
+
 }
+
+
 
 
 
